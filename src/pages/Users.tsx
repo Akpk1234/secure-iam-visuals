@@ -5,29 +5,60 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import UserModal from '@/components/modals/UserModal';
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    mode: 'add' as 'add' | 'view' | 'edit',
+    user: null as any
+  });
   
-  const users = [
+  const [users, setUsers] = useState([
     { id: 1, name: 'John Doe', email: 'john@company.com', role: 'Admin', status: 'Active', lastLogin: '2024-01-15 09:30' },
     { id: 2, name: 'Jane Smith', email: 'jane@company.com', role: 'Manager', status: 'Active', lastLogin: '2024-01-15 08:45' },
     { id: 3, name: 'Mike Johnson', email: 'mike@company.com', role: 'User', status: 'Inactive', lastLogin: '2024-01-10 16:20' },
     { id: 4, name: 'Sarah Wilson', email: 'sarah@company.com', role: 'User', status: 'Active', lastLogin: '2024-01-15 11:15' },
     { id: 5, name: 'David Brown', email: 'david@company.com', role: 'Manager', status: 'Pending', lastLogin: 'Never' }
-  ];
+  ]);
 
-  const handleView = (userId: number) => {
-    console.log('View user:', userId);
+  const handleView = (user: any) => {
+    setModalState({ isOpen: true, mode: 'view', user });
   };
 
-  const handleEdit = (userId: number) => {
-    console.log('Edit user:', userId);
+  const handleEdit = (user: any) => {
+    setModalState({ isOpen: true, mode: 'edit', user });
   };
 
   const handleDelete = (userId: number) => {
-    console.log('Delete user:', userId);
+    if (confirm('Are you sure you want to delete this user?')) {
+      setUsers(users.filter(user => user.id !== userId));
+    }
+  };
+
+  const handleAddUser = () => {
+    setModalState({ isOpen: true, mode: 'add', user: null });
+  };
+
+  const handleSaveUser = (userData: any) => {
+    if (modalState.mode === 'add') {
+      const newUser = {
+        id: users.length + 1,
+        ...userData,
+        lastLogin: 'Never'
+      };
+      setUsers([...users, newUser]);
+    } else if (modalState.mode === 'edit') {
+      setUsers(users.map(user => 
+        user.id === modalState.user.id ? { ...user, ...userData } : user
+      ));
+    }
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, mode: 'add', user: null });
   };
 
   const filteredUsers = users.filter(user => {
@@ -41,7 +72,7 @@ const Users = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
-        <Button className="flex items-center space-x-2">
+        <Button onClick={handleAddUser} className="flex items-center space-x-2">
           <Plus className="h-4 w-4" />
           <span>Add User</span>
         </Button>
@@ -122,7 +153,7 @@ const Users = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleView(user.id)}
+                          onClick={() => handleView(user)}
                           className="h-8 w-8 p-0"
                         >
                           <Eye className="h-4 w-4" />
@@ -130,7 +161,7 @@ const Users = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleEdit(user.id)}
+                          onClick={() => handleEdit(user)}
                           className="h-8 w-8 p-0"
                         >
                           <Edit className="h-4 w-4" />
@@ -152,6 +183,14 @@ const Users = () => {
           </div>
         </CardContent>
       </Card>
+
+      <UserModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        mode={modalState.mode}
+        user={modalState.user}
+        onSave={handleSaveUser}
+      />
     </div>
   );
 };

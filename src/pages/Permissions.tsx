@@ -1,12 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Key, Eye, Edit, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import PermissionModal from '@/components/modals/PermissionModal';
 
 const Permissions = () => {
-  const permissions = [
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    mode: 'add' as 'add' | 'view' | 'edit',
+    permission: null as any
+  });
+
+  const [permissions, setPermissions] = useState([
     { id: 1, name: 'user.create', description: 'Create new users', category: 'User Management', scope: 'Global' },
     { id: 2, name: 'user.read', description: 'View user details', category: 'User Management', scope: 'Global' },
     { id: 3, name: 'user.update', description: 'Update user information', category: 'User Management', scope: 'Global' },
@@ -15,7 +22,43 @@ const Permissions = () => {
     { id: 6, name: 'role.read', description: 'View role details', category: 'Role Management', scope: 'Global' },
     { id: 7, name: 'audit.read', description: 'View audit logs', category: 'Audit', scope: 'Organization' },
     { id: 8, name: 'system.settings', description: 'Modify system settings', category: 'System', scope: 'Global' }
-  ];
+  ]);
+
+  const handleView = (permission: any) => {
+    setModalState({ isOpen: true, mode: 'view', permission });
+  };
+
+  const handleEdit = (permission: any) => {
+    setModalState({ isOpen: true, mode: 'edit', permission });
+  };
+
+  const handleDelete = (permissionId: number) => {
+    if (confirm('Are you sure you want to delete this permission?')) {
+      setPermissions(permissions.filter(permission => permission.id !== permissionId));
+    }
+  };
+
+  const handleAddPermission = () => {
+    setModalState({ isOpen: true, mode: 'add', permission: null });
+  };
+
+  const handleSavePermission = (permissionData: any) => {
+    if (modalState.mode === 'add') {
+      const newPermission = {
+        id: permissions.length + 1,
+        ...permissionData
+      };
+      setPermissions([...permissions, newPermission]);
+    } else if (modalState.mode === 'edit') {
+      setPermissions(permissions.map(permission => 
+        permission.id === modalState.permission.id ? { ...permission, ...permissionData } : permission
+      ));
+    }
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, mode: 'add', permission: null });
+  };
 
   const categories = [...new Set(permissions.map(p => p.category))];
 
@@ -23,7 +66,7 @@ const Permissions = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">Permissions</h1>
-        <Button className="flex items-center space-x-2">
+        <Button onClick={handleAddPermission} className="flex items-center space-x-2">
           <Plus className="h-4 w-4" />
           <span>Add Permission</span>
         </Button>
@@ -68,13 +111,28 @@ const Permissions = () => {
                       </td>
                       <td className="py-4 px-6">
                         <div className="flex items-center space-x-2">
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-8 w-8 p-0"
+                            onClick={() => handleView(permission)}
+                          >
                             <Eye className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-8 w-8 p-0"
+                            onClick={() => handleEdit(permission)}
+                          >
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-red-600 hover:text-red-700">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="h-8 w-8 p-0 text-red-600 hover:text-red-700"
+                            onClick={() => handleDelete(permission.id)}
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -87,6 +145,14 @@ const Permissions = () => {
           </CardContent>
         </Card>
       ))}
+
+      <PermissionModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        mode={modalState.mode}
+        permission={modalState.permission}
+        onSave={handleSavePermission}
+      />
     </div>
   );
 };

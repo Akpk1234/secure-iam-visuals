@@ -5,8 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';  
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import PolicyModal from '@/components/modals/PolicyModal';
 
 const AccessControl = () => {
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    mode: 'add' as 'add' | 'view' | 'edit',
+    policy: null as any
+  });
+
   const [policies, setPolicies] = useState([
     {
       id: 1,
@@ -60,16 +67,41 @@ const AccessControl = () => {
     }
   ]);
 
-  const handleView = (policyId: number) => {
-    console.log('View policy:', policyId);
+  const handleView = (policy: any) => {
+    setModalState({ isOpen: true, mode: 'view', policy });
   };
 
-  const handleEdit = (policyId: number) => {
-    console.log('Edit policy:', policyId);
+  const handleEdit = (policy: any) => {
+    setModalState({ isOpen: true, mode: 'edit', policy });
   };
 
   const handleDelete = (policyId: number) => {
-    console.log('Delete policy:', policyId);
+    if (confirm('Are you sure you want to delete this policy?')) {
+      setPolicies(policies.filter(policy => policy.id !== policyId));
+    }
+  };
+
+  const handleCreatePolicy = () => {
+    setModalState({ isOpen: true, mode: 'add', policy: null });
+  };
+
+  const handleSavePolicy = (policyData: any) => {
+    if (modalState.mode === 'add') {
+      const newPolicy = {
+        id: policies.length + 1,
+        ...policyData,
+        status: 'Active'
+      };
+      setPolicies([...policies, newPolicy]);
+    } else if (modalState.mode === 'edit') {
+      setPolicies(policies.map(policy => 
+        policy.id === modalState.policy.id ? { ...policy, ...policyData } : policy
+      ));
+    }
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, mode: 'add', policy: null });
   };
 
   const handleToggleStatus = (policyId: number) => {
@@ -84,7 +116,7 @@ const AccessControl = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">Access Control</h1>
-        <Button className="flex items-center space-x-2">
+        <Button onClick={handleCreatePolicy} className="flex items-center space-x-2">
           <Plus className="h-4 w-4" />
           <span>Create Policy</span>
         </Button>
@@ -196,7 +228,7 @@ const AccessControl = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleView(policy.id)}
+                          onClick={() => handleView(policy)}
                           className="h-8 w-8 p-0"
                         >
                           <Eye className="h-4 w-4" />
@@ -204,7 +236,7 @@ const AccessControl = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleEdit(policy.id)}
+                          onClick={() => handleEdit(policy)}
                           className="h-8 w-8 p-0"
                         >
                           <Edit className="h-4 w-4" />
@@ -226,6 +258,14 @@ const AccessControl = () => {
           </div>
         </CardContent>
       </Card>
+
+      <PolicyModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        mode={modalState.mode}
+        policy={modalState.policy}
+        onSave={handleSavePolicy}
+      />
     </div>
   );
 };

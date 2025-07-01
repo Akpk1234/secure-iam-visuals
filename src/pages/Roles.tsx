@@ -1,12 +1,18 @@
-
 import React, { useState } from 'react';
 import { Eye, Edit, Trash2, Plus, Users, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import RoleModal from '@/components/modals/RoleModal';
 
 const Roles = () => {
-  const roles = [
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    mode: 'add' as 'add' | 'view' | 'edit',
+    role: null as any
+  });
+
+  const [roles, setRoles] = useState([
     { 
       id: 1, 
       name: 'Super Admin', 
@@ -47,25 +53,51 @@ const Roles = () => {
       userCount: 45,
       status: 'Inactive'
     }
-  ];
+  ]);
 
-  const handleView = (roleId: number) => {
-    console.log('View role:', roleId);
+  const handleView = (role: any) => {
+    setModalState({ isOpen: true, mode: 'view', role });
   };
 
-  const handleEdit = (roleId: number) => {
-    console.log('Edit role:', roleId);
+  const handleEdit = (role: any) => {
+    setModalState({ isOpen: true, mode: 'edit', role });
   };
 
   const handleDelete = (roleId: number) => {
-    console.log('Delete role:', roleId);
+    if (confirm('Are you sure you want to delete this role?')) {
+      setRoles(roles.filter(role => role.id !== roleId));
+    }
+  };
+
+  const handleCreateRole = () => {
+    setModalState({ isOpen: true, mode: 'add', role: null });
+  };
+
+  const handleSaveRole = (roleData: any) => {
+    if (modalState.mode === 'add') {
+      const newRole = {
+        id: roles.length + 1,
+        ...roleData,
+        permissions: ['Basic Access'],
+        userCount: 0
+      };
+      setRoles([...roles, newRole]);
+    } else if (modalState.mode === 'edit') {
+      setRoles(roles.map(role => 
+        role.id === modalState.role.id ? { ...role, ...roleData } : role
+      ));
+    }
+  };
+
+  const closeModal = () => {
+    setModalState({ isOpen: false, mode: 'add', role: null });
   };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">Role Management</h1>
-        <Button className="flex items-center space-x-2">
+        <Button onClick={handleCreateRole} className="flex items-center space-x-2">
           <Plus className="h-4 w-4" />
           <span>Create Role</span>
         </Button>
@@ -118,7 +150,7 @@ const Roles = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleView(role.id)}
+                    onClick={() => handleView(role)}
                     className="h-8 w-8 p-0"
                   >
                     <Eye className="h-4 w-4" />
@@ -126,7 +158,7 @@ const Roles = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleEdit(role.id)}
+                    onClick={() => handleEdit(role)}
                     className="h-8 w-8 p-0"
                   >
                     <Edit className="h-4 w-4" />
@@ -189,7 +221,7 @@ const Roles = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleView(role.id)}
+                          onClick={() => handleView(role)}
                           className="h-8 w-8 p-0"
                         >
                           <Eye className="h-4 w-4" />
@@ -197,7 +229,7 @@ const Roles = () => {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleEdit(role.id)}
+                          onClick={() => handleEdit(role)}
                           className="h-8 w-8 p-0"
                         >
                           <Edit className="h-4 w-4" />
@@ -219,6 +251,14 @@ const Roles = () => {
           </div>
         </CardContent>
       </Card>
+
+      <RoleModal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        mode={modalState.mode}
+        role={modalState.role}
+        onSave={handleSaveRole}
+      />
     </div>
   );
 };
