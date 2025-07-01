@@ -35,8 +35,8 @@ const Authentication = () => {
     setSettings(prev => ({
       ...prev,
       [category]: {
-        ...prev[category as keyof typeof prev],
-        [setting]: !prev[category as keyof typeof prev][setting as keyof typeof prev[category as keyof typeof prev]]
+        ...(prev as any)[category],
+        [setting]: !(prev as any)[category][setting]
       }
     }));
   };
