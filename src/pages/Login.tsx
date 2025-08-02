@@ -39,12 +39,21 @@ const Login = () => {
     }
 
     if (isLogin) {
+      // Debug logging
+      console.log('Login attempt with:', { email, password });
+      console.log('Available credentials:', Object.keys(userCredentials));
+      
       // Check credentials for login
       const user = userCredentials[email as keyof typeof userCredentials];
+      console.log('Found user:', user);
+      
       if (!user || user.password !== password) {
-        alert('Invalid credentials');
+        console.log('Authentication failed');
+        alert('Invalid credentials. Please check username and password.');
         return;
       }
+      
+      console.log('Authentication successful for role:', user.role);
       
       // Store user session with role
       localStorage.setItem('isAuthenticated', 'true');
@@ -114,7 +123,7 @@ const Login = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
                     id="email"
-                    type="email"
+                    type={isLogin ? "text" : "email"}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={isLogin ? "Enter username (e.g., admin001)" : "Enter your email"}
@@ -173,6 +182,39 @@ const Login = () => {
                 {isLogin ? 'Sign In' : 'Sign Up'}
               </Button>
             </form>
+
+            {/* Demo Credentials Helper */}
+            {isLogin && (
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                <h3 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h3>
+                <div className="grid grid-cols-2 gap-2 text-xs text-blue-800">
+                  <div>
+                    <p><strong>Admin:</strong> admin001</p>
+                    <p className="text-blue-600">Admin@123!</p>
+                  </div>
+                  <div>
+                    <p><strong>Manager:</strong> manager001</p>
+                    <p className="text-blue-600">Manager@123!</p>
+                  </div>
+                  <div>
+                    <p><strong>Cyber:</strong> cyber001</p>
+                    <p className="text-blue-600">Cyber@123!</p>
+                  </div>
+                  <div>
+                    <p><strong>Infra:</strong> infra001</p>
+                    <p className="text-blue-600">Infra@123!</p>
+                  </div>
+                  <div>
+                    <p><strong>User:</strong> user001</p>
+                    <p className="text-blue-600">User@123!</p>
+                  </div>
+                  <div>
+                    <p><strong>User2:</strong> user002</p>
+                    <p className="text-blue-600">User@456!</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="text-center mt-6">
               <button
