@@ -15,22 +15,49 @@ const Login = () => {
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
+  // Define user credentials and roles
+  const userCredentials = {
+    'admin001': { password: 'Admin@123!', role: 'admin', name: 'Admin User' },
+    'manager001': { password: 'Manager@123!', role: 'manager', name: 'Manager User' },
+    'cyber001': { password: 'Cyber@123!', role: 'cyber', name: 'Cyber Security' },
+    'infra001': { password: 'Infra@123!', role: 'infra', name: 'Infrastructure' },
+    'user001': { password: 'User@123!', role: 'user', name: 'Regular User' },
+    'user002': { password: 'User@456!', role: 'user', name: 'Regular User 2' }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple validation
+    
     if (!email || !password) {
       alert('Please fill in all fields');
       return;
     }
+
     if (!isLogin && password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    
-    // Store user session
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('userEmail', email);
-    localStorage.setItem('userName', name || 'Admin User');
+
+    if (isLogin) {
+      // Check credentials for login
+      const user = userCredentials[email as keyof typeof userCredentials];
+      if (!user || user.password !== password) {
+        alert('Invalid credentials');
+        return;
+      }
+      
+      // Store user session with role
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userName', user.name);
+      localStorage.setItem('userRole', user.role);
+    } else {
+      // For signup, create new user session
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userName', name || 'New User');
+      localStorage.setItem('userRole', 'user');
+    }
     
     navigate('/');
   };
@@ -81,7 +108,7 @@ const Login = () => {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email Address
+                  {isLogin ? 'Username' : 'Email Address'}
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -90,7 +117,7 @@ const Login = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
+                    placeholder={isLogin ? "Enter username (e.g., admin001)" : "Enter your email"}
                     className="pl-10"
                     required
                   />

@@ -10,6 +10,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
   
   if (!isAuthenticated) {
+    // Clear any stale data
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
     return <Navigate to="/login" replace />;
   }
   

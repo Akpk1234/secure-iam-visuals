@@ -20,6 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   const navigate = useNavigate();
 
   const userName = localStorage.getItem('userName') || 'Admin User';
+  const userRole = localStorage.getItem('userRole') || 'user';
   const userEmail = localStorage.getItem('userEmail') || 'admin@secureiam.com';
 
   const handleSearch = (e: React.FormEvent) => {
@@ -34,6 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
     navigate('/login');
   };
 
@@ -142,7 +144,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
                     <div className="min-w-0 flex-1">
                       <h3 className="font-semibold text-gray-800 truncate">{userName}</h3>
                       <p className="text-sm text-gray-500 truncate">{userEmail}</p>
-                      <p className="text-xs text-gray-400">Super Administrator</p>
+                      <p className="text-xs text-gray-400 capitalize">{userRole}</p>
                     </div>
                   </div>
                 </div>
