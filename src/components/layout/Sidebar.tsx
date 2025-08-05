@@ -75,8 +75,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   onClick={() => onClose()}
                   className={`flex items-center space-x-3 p-3 transition-colors ${
                     isActive 
-                      ? 'bg-sky-500 text-white relative -mr-6 pr-8 rounded-l-lg' 
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg'
+                      ? 'bg-cyan-500 text-white relative -mr-6 pr-8 rounded-l-lg shadow-lg' 
+                      : 'text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mx-2'
                   }`}
                 >
                   <Icon className="h-5 w-5 flex-shrink-0" />
