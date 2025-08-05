@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, Edit, Trash2, Plus, Lock, Unlock, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';  
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import PolicyModal from '@/components/modals/PolicyModal';
+import { PersistentStorage } from '@/lib/storage';
 
 const AccessControl = () => {
   const [modalState, setModalState] = useState({
@@ -14,7 +15,7 @@ const AccessControl = () => {
     policy: null as any
   });
 
-  const [policies, setPolicies] = useState([
+  const defaultPolicies = [
     {
       id: 1,
       name: 'Admin Full Access',
@@ -65,7 +66,13 @@ const AccessControl = () => {
       status: 'Inactive',
       priority: 5
     }
-  ]);
+  ];
+
+  const [policies, setPolicies] = useState(PersistentStorage.load('policies', defaultPolicies));
+
+  useEffect(() => {
+    PersistentStorage.save('policies', policies);
+  }, [policies]);
 
   const handleView = (policy: any) => {
     setModalState({ isOpen: true, mode: 'view', policy });

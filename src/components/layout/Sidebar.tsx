@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       
       {/* Sidebar */}
       <aside className={`
-        fixed md:static top-0 left-0 z-50 h-full
+        fixed md:static top-0 left-0 z-50 h-screen
         w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
@@ -73,10 +73,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   key={item.name}
                   to={item.path}
                   onClick={() => onClose()}
-                  className={`flex items-center space-x-3 p-3 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-3 p-3 transition-colors ${
                     isActive 
-                      ? 'bg-blue-600 text-white' 
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                      ? 'bg-sky-500 text-white relative -mr-6 pr-8 rounded-l-lg' 
+                      : 'text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg'
                   }`}
                 >
                   <Icon className="h-5 w-5 flex-shrink-0" />

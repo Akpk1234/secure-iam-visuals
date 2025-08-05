@@ -79,7 +79,7 @@ const Login = () => {
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="h-8 w-8 text-blue-600" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">SecureIAM</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">IAM System</h1>
           <p className="text-blue-100">Identity & Access Management System</p>
         </div>
 

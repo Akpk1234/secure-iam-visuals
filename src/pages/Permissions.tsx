@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Key, Eye, Edit, Trash2, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import PermissionModal from '@/components/modals/PermissionModal';
+import { PersistentStorage } from '@/lib/storage';
 
 const Permissions = () => {
   const [modalState, setModalState] = useState({
@@ -13,7 +14,7 @@ const Permissions = () => {
     permission: null as any
   });
 
-  const [permissions, setPermissions] = useState([
+  const defaultPermissions = [
     { id: 1, name: 'user.create', description: 'Create new users', category: 'User Management', scope: 'Global' },
     { id: 2, name: 'user.read', description: 'View user details', category: 'User Management', scope: 'Global' },
     { id: 3, name: 'user.update', description: 'Update user information', category: 'User Management', scope: 'Global' },
@@ -22,7 +23,13 @@ const Permissions = () => {
     { id: 6, name: 'role.read', description: 'View role details', category: 'Role Management', scope: 'Global' },
     { id: 7, name: 'audit.read', description: 'View audit logs', category: 'Audit', scope: 'Organization' },
     { id: 8, name: 'system.settings', description: 'Modify system settings', category: 'System', scope: 'Global' }
-  ]);
+  ];
+
+  const [permissions, setPermissions] = useState(PersistentStorage.load('permissions', defaultPermissions));
+
+  useEffect(() => {
+    PersistentStorage.save('permissions', permissions);
+  }, [permissions]);
 
   const handleView = (permission: any) => {
     setModalState({ isOpen: true, mode: 'view', permission });

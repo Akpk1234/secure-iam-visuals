@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
 
   const userName = localStorage.getItem('userName') || 'Admin User';
   const userRole = localStorage.getItem('userRole') || 'user';
-  const userEmail = localStorage.getItem('userEmail') || 'admin@secureiam.com';
+  const userEmail = localStorage.getItem('userEmail') || 'admin@iamsystem.com';
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">SI</span>
             </div>
-            <span className="text-xl font-bold text-gray-800 hidden sm:block">SecureIAM</span>
+            <span className="text-xl font-bold text-gray-800 hidden sm:block">IAM System</span>
           </Link>
         </div>
 

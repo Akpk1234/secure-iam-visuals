@@ -9,15 +9,15 @@ import { Label } from '@/components/ui/label';
 
 const Settings = () => {
   const [settings, setSettings] = useState({
-    orgName: 'SecureIAM Corporation',
-    domain: 'secureiam.com',
+    orgName: 'Identity and Access Management Corporation',
+    domain: 'iamsystem.com',
     timezone: 'UTC-5 (Eastern Time)',
     forceHttps: true,
     rateLimiting: true,
     ipWhitelist: false,
     smtpHost: '',
     smtpPort: '587',
-    fromEmail: 'noreply@secureiam.com',
+    fromEmail: 'noreply@iamsystem.com',
     automaticBackups: true,
     maintenanceMode: false,
     retentionDays: '90'
@@ -164,7 +164,7 @@ const Settings = () => {
                 id="fromEmail" 
                 value={settings.fromEmail}
                 onChange={(e) => handleInputChange('fromEmail', e.target.value)}
-                placeholder="noreply@secureiam.com" 
+                placeholder="noreply@iamsystem.com" 
               />
             </div>
           </CardContent>

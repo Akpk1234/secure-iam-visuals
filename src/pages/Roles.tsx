@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, Edit, Trash2, Plus, Users, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import RoleModal from '@/components/modals/RoleModal';
+import { PersistentStorage } from '@/lib/storage';
 
 const Roles = () => {
   const [modalState, setModalState] = useState({
@@ -12,7 +13,7 @@ const Roles = () => {
     role: null as any
   });
 
-  const [roles, setRoles] = useState([
+  const defaultRoles = [
     { 
       id: 1, 
       name: 'Super Admin', 
@@ -53,7 +54,13 @@ const Roles = () => {
       userCount: 45,
       status: 'Inactive'
     }
-  ]);
+  ];
+
+  const [roles, setRoles] = useState(PersistentStorage.load('roles', defaultRoles));
+
+  useEffect(() => {
+    PersistentStorage.save('roles', roles);
+  }, [roles]);
 
   const handleView = (role: any) => {
     setModalState({ isOpen: true, mode: 'view', role });

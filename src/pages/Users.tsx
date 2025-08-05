@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, Edit, Trash2, Plus, Search, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import UserModal from '@/components/modals/UserModal';
+import { PersistentStorage } from '@/lib/storage';
 
 const Users = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,13 +17,19 @@ const Users = () => {
     user: null as any
   });
   
-  const [users, setUsers] = useState([
+  const defaultUsers = [
     { id: 1, name: 'John Doe', email: 'john@company.com', role: 'Admin', status: 'Active', lastLogin: '2024-01-15 09:30' },
     { id: 2, name: 'Jane Smith', email: 'jane@company.com', role: 'Manager', status: 'Active', lastLogin: '2024-01-15 08:45' },
     { id: 3, name: 'Mike Johnson', email: 'mike@company.com', role: 'User', status: 'Inactive', lastLogin: '2024-01-10 16:20' },
     { id: 4, name: 'Sarah Wilson', email: 'sarah@company.com', role: 'User', status: 'Active', lastLogin: '2024-01-15 11:15' },
     { id: 5, name: 'David Brown', email: 'david@company.com', role: 'Manager', status: 'Pending', lastLogin: 'Never' }
-  ]);
+  ];
+
+  const [users, setUsers] = useState(PersistentStorage.load('users', defaultUsers));
+
+  useEffect(() => {
+    PersistentStorage.save('users', users);
+  }, [users]);
 
   const handleView = (user: any) => {
     setModalState({ isOpen: true, mode: 'view', user });

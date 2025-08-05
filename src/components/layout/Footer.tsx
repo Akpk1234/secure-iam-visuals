@@ -23,7 +23,7 @@ const Footer = () => {
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">SI</span>
               </div>
-              <span className="text-xl font-bold">SecureIAM</span>
+              <span className="text-xl font-bold">IAM System</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Complete Identity & Access Management solution for enterprise security and compliance.
@@ -75,7 +75,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2024 SecureIAM. All rights reserved.
+            © 2024 Identity and Access Management System. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
