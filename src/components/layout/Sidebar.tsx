@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       
       {/* Sidebar */}
       <aside className={`
-        fixed md:static top-0 left-0 z-50 h-screen
+        fixed md:static top-0 left-0 z-50 h-full min-h-screen
         w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
@@ -62,7 +62,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
         
-        <div className="px-6 pb-6">
+        <div className="px-6 pb-6 pt-4">
           <div className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -75,7 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   onClick={() => onClose()}
                   className={`flex items-center space-x-3 p-3 transition-colors ${
                     isActive 
-                      ? 'bg-cyan-500 text-white relative -mr-6 pr-8 rounded-l-lg shadow-lg' 
+                      ? 'bg-cyan-500 text-white relative -mr-6 pr-8 rounded-l-lg shadow-lg mt-2' 
                       : 'text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg mx-2'
                   }`}
                 >
