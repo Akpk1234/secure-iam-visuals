@@ -17,6 +17,8 @@ import AuditLogs from "./pages/AuditLogs";
 import Reports from "./pages/Reports";
 import Monitoring from "./pages/Monitoring";
 import Settings from "./pages/Settings";
+import SecurityIncidents from "./pages/SecurityIncidents";
+import VulnerabilityManagement from "./pages/VulnerabilityManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
           <Route path="/audit-logs" element={<ProtectedRoute><Layout><AuditLogs /></Layout></ProtectedRoute>} />
           <Route path="/reports" element={<ProtectedRoute><Layout><Reports /></Layout></ProtectedRoute>} />
           <Route path="/monitoring" element={<ProtectedRoute><Layout><Monitoring /></Layout></ProtectedRoute>} />
+          <Route path="/security-incidents" element={<ProtectedRoute><Layout><SecurityIncidents /></Layout></ProtectedRoute>} />
+          <Route path="/vulnerability-management" element={<ProtectedRoute><Layout><VulnerabilityManagement /></Layout></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -21,8 +21,25 @@ const Permissions = () => {
     { id: 4, name: 'user.delete', description: 'Delete users', category: 'User Management', scope: 'Global' },
     { id: 5, name: 'role.create', description: 'Create new roles', category: 'Role Management', scope: 'Global' },
     { id: 6, name: 'role.read', description: 'View role details', category: 'Role Management', scope: 'Global' },
-    { id: 7, name: 'audit.read', description: 'View audit logs', category: 'Audit', scope: 'Organization' },
-    { id: 8, name: 'system.settings', description: 'Modify system settings', category: 'System', scope: 'Global' }
+    { id: 7, name: 'role.update', description: 'Update role information', category: 'Role Management', scope: 'Global' },
+    { id: 8, name: 'role.delete', description: 'Delete roles', category: 'Role Management', scope: 'Global' },
+    { id: 9, name: 'policy.create', description: 'Create access policies', category: 'Access Control', scope: 'Global' },
+    { id: 10, name: 'policy.read', description: 'View access policies', category: 'Access Control', scope: 'Global' },
+    { id: 11, name: 'policy.update', description: 'Update access policies', category: 'Access Control', scope: 'Global' },
+    { id: 12, name: 'policy.delete', description: 'Delete access policies', category: 'Access Control', scope: 'Global' },
+    { id: 13, name: 'audit.read', description: 'View audit logs', category: 'Security', scope: 'Organization' },
+    { id: 14, name: 'audit.export', description: 'Export audit logs', category: 'Security', scope: 'Organization' },
+    { id: 15, name: 'incident.create', description: 'Create security incidents', category: 'Security', scope: 'Global' },
+    { id: 16, name: 'incident.read', description: 'View security incidents', category: 'Security', scope: 'Global' },
+    { id: 17, name: 'incident.update', description: 'Update security incidents', category: 'Security', scope: 'Global' },
+    { id: 18, name: 'vulnerability.read', description: 'View vulnerability reports', category: 'Security', scope: 'Global' },
+    { id: 19, name: 'vulnerability.manage', description: 'Manage vulnerabilities', category: 'Security', scope: 'Global' },
+    { id: 20, name: 'system.settings', description: 'Modify system settings', category: 'System', scope: 'Global' },
+    { id: 21, name: 'system.backup', description: 'Create system backups', category: 'System', scope: 'Global' },
+    { id: 22, name: 'monitoring.read', description: 'View monitoring data', category: 'Monitoring', scope: 'Organization' },
+    { id: 23, name: 'monitoring.configure', description: 'Configure monitoring settings', category: 'Monitoring', scope: 'Global' },
+    { id: 24, name: 'reports.read', description: 'View reports', category: 'Reporting', scope: 'Organization' },
+    { id: 25, name: 'reports.generate', description: 'Generate custom reports', category: 'Reporting', scope: 'Organization' }
   ];
 
   const [permissions, setPermissions] = useState(PersistentStorage.load('permissions', defaultPermissions));

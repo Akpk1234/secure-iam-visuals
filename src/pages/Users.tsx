@@ -18,11 +18,21 @@ const Users = () => {
   });
   
   const defaultUsers = [
-    { id: 1, name: 'John Doe', email: 'john@company.com', role: 'Admin', status: 'Active', lastLogin: '2024-01-15 09:30' },
-    { id: 2, name: 'Jane Smith', email: 'jane@company.com', role: 'Manager', status: 'Active', lastLogin: '2024-01-15 08:45' },
+    { id: 1, name: 'John Doe', email: 'john@company.com', role: 'Super Admin', status: 'Active', lastLogin: '2024-01-15 09:30' },
+    { id: 2, name: 'Jane Smith', email: 'jane@company.com', role: 'Security Manager', status: 'Active', lastLogin: '2024-01-15 08:45' },
     { id: 3, name: 'Mike Johnson', email: 'mike@company.com', role: 'User', status: 'Inactive', lastLogin: '2024-01-10 16:20' },
-    { id: 4, name: 'Sarah Wilson', email: 'sarah@company.com', role: 'User', status: 'Active', lastLogin: '2024-01-15 11:15' },
-    { id: 5, name: 'David Brown', email: 'david@company.com', role: 'Manager', status: 'Pending', lastLogin: 'Never' }
+    { id: 4, name: 'Sarah Wilson', email: 'sarah@company.com', role: 'Auditor', status: 'Active', lastLogin: '2024-01-15 11:15' },
+    { id: 5, name: 'David Brown', email: 'david@company.com', role: 'Manager', status: 'Pending', lastLogin: 'Never' },
+    { id: 6, name: 'Emily Chen', email: 'emily@company.com', role: 'Cyber Security Analyst', status: 'Active', lastLogin: '2024-01-15 07:20' },
+    { id: 7, name: 'Robert Taylor', email: 'robert@company.com', role: 'IT Manager', status: 'Active', lastLogin: '2024-01-14 18:30' },
+    { id: 8, name: 'Lisa Anderson', email: 'lisa@company.com', role: 'Compliance Officer', status: 'Active', lastLogin: '2024-01-15 10:45' },
+    { id: 9, name: 'James Wilson', email: 'james@company.com', role: 'Security Engineer', status: 'Active', lastLogin: '2024-01-15 06:15' },
+    { id: 10, name: 'Maria Garcia', email: 'maria@company.com', role: 'Guest', status: 'Inactive', lastLogin: '2024-01-08 14:20' },
+    { id: 11, name: 'Alex Kumar', email: 'alex@company.com', role: 'DevOps Engineer', status: 'Active', lastLogin: '2024-01-15 12:00' },
+    { id: 12, name: 'Sophie Martin', email: 'sophie@company.com', role: 'Risk Analyst', status: 'Active', lastLogin: '2024-01-14 16:45' },
+    { id: 13, name: 'Thomas Lee', email: 'thomas@company.com', role: 'Network Admin', status: 'Active', lastLogin: '2024-01-15 05:30' },
+    { id: 14, name: 'Rachel Kim', email: 'rachel@company.com', role: 'SOC Analyst', status: 'Active', lastLogin: '2024-01-15 13:10' },
+    { id: 15, name: 'Daniel Rodriguez', email: 'daniel@company.com', role: 'Penetration Tester', status: 'Active', lastLogin: '2024-01-15 11:30' }
   ];
 
   const [users, setUsers] = useState(PersistentStorage.load('users', defaultUsers));

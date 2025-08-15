@@ -12,6 +12,8 @@ import {
   UserCheck,
   Lock,
   Activity,
+  AlertTriangle,
+  Bug,
   X
 } from 'lucide-react';
 
@@ -30,6 +32,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { name: 'Access Control', icon: Key, path: '/access-control' },
     { name: 'Permissions', icon: UserCheck, path: '/permissions' },
     { name: 'Authentication', icon: Lock, path: '/authentication' },
+    { name: 'Security Incidents', icon: AlertTriangle, path: '/security-incidents' },
+    { name: 'Vulnerabilities', icon: Bug, path: '/vulnerability-management' },
     { name: 'Audit Logs', icon: FileText, path: '/audit-logs' },
     { name: 'Reports', icon: BarChart3, path: '/reports' },
     { name: 'Monitoring', icon: Activity, path: '/monitoring' },
