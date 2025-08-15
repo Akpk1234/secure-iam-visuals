@@ -39,6 +39,8 @@ const Footer = () => {
               <li><Link to="/roles" className="text-gray-400 hover:text-white transition-colors text-sm">Role Management</Link></li>
               <li><Link to="/access-control" className="text-gray-400 hover:text-white transition-colors text-sm">Access Control</Link></li>
               <li><Link to="/permissions" className="text-gray-400 hover:text-white transition-colors text-sm">Permissions</Link></li>
+              <li><Link to="/security-incidents" className="text-gray-400 hover:text-white transition-colors text-sm">Security Incidents</Link></li>
+              <li><Link to="/vulnerability-management" className="text-gray-400 hover:text-white transition-colors text-sm">Vulnerability Management</Link></li>
             </ul>
           </div>
           
