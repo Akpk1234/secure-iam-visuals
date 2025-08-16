@@ -224,6 +224,30 @@ const AccessControl = () => {
     PersistentStorage.save('policies', policies);
   }, [policies]);
 
+  // Ensure at least 20 demo policies available
+  useEffect(() => {
+    if (!Array.isArray(policies) || policies.length < 20) {
+      const startId = (Array.isArray(policies) ? policies.length : 0) + 1;
+      const count = 20 - (Array.isArray(policies) ? policies.length : 0);
+      const fillers = Array.from({ length: count }, (_, i) => {
+        const id = startId + i;
+        return {
+          id,
+          name: `Policy ${id}`,
+          description: 'Auto-generated policy for demo data',
+          resource: 'Demo Resource',
+          action: 'Read',
+          effect: id % 5 === 0 ? 'Deny' : 'Allow',
+          status: id % 6 === 0 ? 'Inactive' : 'Active',
+          priority: id
+        };
+      });
+      setPolicies([...(Array.isArray(policies) ? policies : []), ...fillers]);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleView = (policy: any) => {
     setModalState({ isOpen: true, mode: 'view', policy });
   };

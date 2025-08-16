@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-      <div className="flex flex-1">
+      <div className="flex flex-1 items-stretch">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="flex-1 min-w-0 flex flex-col">
           <main className="flex-1 p-4 sm:p-6">

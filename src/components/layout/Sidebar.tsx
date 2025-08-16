@@ -45,14 +45,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {/* Mobile overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={onClose}
         ></div>
       )}
       
       {/* Sidebar */}
       <aside className={`
-        fixed md:static top-0 left-0 z-50 h-screen
+        fixed md:static top-0 left-0 z-50 h-screen md:h-auto md:self-stretch
         w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         flex flex-col

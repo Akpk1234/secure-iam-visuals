@@ -48,6 +48,27 @@ const Permissions = () => {
     PersistentStorage.save('permissions', permissions);
   }, [permissions]);
 
+  // Ensure a healthy demo dataset
+  useEffect(() => {
+    if (!Array.isArray(permissions) || permissions.length < 20) {
+      const startId = (Array.isArray(permissions) ? permissions.length : 0) + 1;
+      const count = 20 - (Array.isArray(permissions) ? permissions.length : 0);
+      const fillers = Array.from({ length: count }, (_, i) => {
+        const id = startId + i;
+        return {
+          id,
+          name: `custom.permission.${id}`,
+          description: 'Auto-generated permission for demo',
+          category: 'Custom',
+          scope: id % 3 === 0 ? 'Organization' : 'Global'
+        };
+      });
+      setPermissions([...(Array.isArray(permissions) ? permissions : []), ...fillers]);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleView = (permission: any) => {
     setModalState({ isOpen: true, mode: 'view', permission });
   };

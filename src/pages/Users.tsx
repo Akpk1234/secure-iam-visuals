@@ -41,6 +41,28 @@ const Users = () => {
     PersistentStorage.save('users', users);
   }, [users]);
 
+  // Ensure minimum 20 dummy users seeded once
+  useEffect(() => {
+    if (!Array.isArray(users) || users.length < 20) {
+      const startId = (Array.isArray(users) ? users.length : 0) + 1;
+      const count = 20 - (Array.isArray(users) ? users.length : 0);
+      const fillers = Array.from({ length: count }, (_, i) => {
+        const id = startId + i;
+        return {
+          id,
+          name: `User ${id}`,
+          email: `user${id}@company.com`,
+          role: 'User',
+          status: 'Active',
+          lastLogin: 'Never'
+        };
+      });
+      setUsers([...(Array.isArray(users) ? users : []), ...fillers]);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleView = (user: any) => {
     setModalState({ isOpen: true, mode: 'view', user });
   };

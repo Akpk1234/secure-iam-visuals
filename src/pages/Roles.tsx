@@ -62,6 +62,28 @@ const Roles = () => {
     PersistentStorage.save('roles', roles);
   }, [roles]);
 
+  // Ensure at least 20 roles are displayed (dummy seed)
+  useEffect(() => {
+    if (!Array.isArray(roles) || roles.length < 20) {
+      const startId = (Array.isArray(roles) ? roles.length : 0) + 1;
+      const count = 20 - (Array.isArray(roles) ? roles.length : 0);
+      const fillers = Array.from({ length: count }, (_, i) => {
+        const id = startId + i;
+        return {
+          id,
+          name: `Role ${id}`,
+          description: 'Auto-generated role for demo data',
+          permissions: ['Read Access'],
+          userCount: Math.floor(Math.random() * 50),
+          status: id % 7 === 0 ? 'Inactive' : 'Active'
+        };
+      });
+      setRoles([...(Array.isArray(roles) ? roles : []), ...fillers]);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleView = (role: any) => {
     setModalState({ isOpen: true, mode: 'view', role });
   };
