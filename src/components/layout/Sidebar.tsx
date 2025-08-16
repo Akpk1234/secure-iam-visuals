@@ -52,9 +52,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       
       {/* Sidebar */}
       <aside className={`
-        fixed md:static top-0 left-0 z-50 h-full min-h-screen
+        fixed md:static top-0 left-0 z-50 h-screen
         w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        flex flex-col
       `}>
         {/* Mobile close button */}
         <div className="flex justify-end p-4 md:hidden">
@@ -66,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
         
-        <div className="px-6 pb-6 pt-4">
+        <div className="px-6 pb-6 pt-4 flex-1 overflow-y-auto">
           <div className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;

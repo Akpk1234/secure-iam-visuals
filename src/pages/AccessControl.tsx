@@ -65,6 +65,156 @@ const AccessControl = () => {
       effect: 'Allow',
       status: 'Inactive',
       priority: 5
+    },
+    {
+      id: 6,
+      name: 'Finance Department Access',
+      description: 'Access to financial systems and reports',
+      resource: 'Finance Systems',
+      action: 'Read, Create, Update',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 6
+    },
+    {
+      id: 7,
+      name: 'HR Database Access',
+      description: 'Human resources data access',
+      resource: 'HR Database',
+      action: 'Read, Update',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 7
+    },
+    {
+      id: 8,
+      name: 'Development Environment',
+      description: 'Access to development servers and tools',
+      resource: 'Dev Environment',
+      action: 'All Actions',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 8
+    },
+    {
+      id: 9,
+      name: 'Production Deployment',
+      description: 'Restricted production deployment access',
+      resource: 'Production Systems',
+      action: 'Deploy, Update',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 9
+    },
+    {
+      id: 10,
+      name: 'Customer Data Access',
+      description: 'Access to customer personal information',
+      resource: 'Customer Database',
+      action: 'Read',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 10
+    },
+    {
+      id: 11,
+      name: 'Backup System Access',
+      description: 'Access to backup and recovery systems',
+      resource: 'Backup Systems',
+      action: 'Read, Create',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 11
+    },
+    {
+      id: 12,
+      name: 'Network Configuration',
+      description: 'Network equipment configuration access',
+      resource: 'Network Devices',
+      action: 'Configure, Monitor',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 12
+    },
+    {
+      id: 13,
+      name: 'Security Tools Access',
+      description: 'Access to security monitoring tools',
+      resource: 'Security Tools',
+      action: 'Read, Monitor',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 13
+    },
+    {
+      id: 14,
+      name: 'External API Block',
+      description: 'Block unauthorized external API access',
+      resource: 'External APIs',
+      action: 'All Actions',
+      effect: 'Deny',
+      status: 'Active',
+      priority: 14
+    },
+    {
+      id: 15,
+      name: 'Contractor Limited Access',
+      description: 'Limited access for contractors and vendors',
+      resource: 'Project Resources',
+      action: 'Read',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 15
+    },
+    {
+      id: 16,
+      name: 'Database Admin Access',
+      description: 'Full database administration privileges',
+      resource: 'Database Systems',
+      action: 'All Actions',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 16
+    },
+    {
+      id: 17,
+      name: 'Email System Access',
+      description: 'Corporate email system management',
+      resource: 'Email Systems',
+      action: 'Read, Send, Manage',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 17
+    },
+    {
+      id: 18,
+      name: 'File Server Access',
+      description: 'Network file server access control',
+      resource: 'File Servers',
+      action: 'Read, Write',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 18
+    },
+    {
+      id: 19,
+      name: 'Training Portal Access',
+      description: 'Employee training and certification portal',
+      resource: 'Training Systems',
+      action: 'Read, Complete',
+      effect: 'Allow',
+      status: 'Active',
+      priority: 19
+    },
+    {
+      id: 20,
+      name: 'Social Media Block',
+      description: 'Block social media access during work hours',
+      resource: 'Social Media Sites',
+      action: 'All Actions',
+      effect: 'Deny',
+      status: 'Inactive',
+      priority: 20
     }
   ];
 
